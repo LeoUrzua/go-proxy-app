@@ -1,12 +1,10 @@
 package utils
 
 import (
-	"fmt"
 	env "github.com/joho/godotenv"
-	"os"
 )
 
-func LoadEnv()  {
+// LoadEnv should load .env file
+func LoadEnv() {
 	env.Load()
-	fmt.Println(os.Getenv("PORT"))
 }

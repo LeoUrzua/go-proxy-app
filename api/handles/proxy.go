@@ -1,15 +1,22 @@
-package handles
+package handlers
 
 import (
+	"encoding/json"
 	"github.com/LeoUrzua/proxy-app/api/middleware"
 	"github.com/kataras/iris"
 )
 
 // HandlerRedirection should redirect traffic
-func HandlerRedirection(app *iris.Application){
-	app.Get("/", middleware.Handler, pingHandler)
+func HandlerRedirection(app *iris.Application) {
+	app.Get("/ping", middleware.ProxyMiddleware, proxyHandler)
 }
 
-func pingHandler(c iris.Context){
-	c.JSON(iris.Map{"Result": "ok"})
+func proxyHandler(c iris.Context) {
+	response, err := json.Marshal(middleware.Que)
+	if err != nil {
+		c.JSON(iris.Map{"status": 400, "result": "parse error"})
+		return
+	}
+	c.JSON(iris.Map{"result": string(response)})
+
 }

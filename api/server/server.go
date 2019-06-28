@@ -1,10 +1,12 @@
 package server
 
 import (
-	"github.com/kataras/iris"
 	"os"
+
+	"github.com/kataras/iris"
 )
 
+// SetUp server
 func SetUp() *iris.Application {
 	app := iris.New()
 	app.Logger().SetLevel("debug")
@@ -12,8 +14,8 @@ func SetUp() *iris.Application {
 }
 
 // RunServer should start server
-func RunServer(app *iris.Application)  {
+func RunServer(app *iris.Application) {
 	app.Run(
 		iris.Addr(os.Getenv("PORT")),
-		)
+	)
 }
